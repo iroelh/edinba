@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mapeo de sistemas · Herramienta para el diseño</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* Paleta EDINBA / INBAL aproximada */
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: white;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 0 0.7rem;
+      font-size: 0.96rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-meta {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.5rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--edinba-blue);
+    }
+
+    .card h3 {
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+      color: var(--edinba-magenta);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.96rem;
+    }
+
+    ul, ol {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.7rem;
+    }
+
+    li { margin-bottom: 0.2rem; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--edinba-mid);
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    .note {
+      border-left: 3px solid var(--edinba-magenta);
+      padding-left: 0.8rem;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .small {
+      font-size: 0.86rem;
+      opacity: 0.9;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 0.75rem;
+        margin-top: 0.2rem;
+      }
+      main {
+        margin-top: -1rem;
+      }
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br />
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+    <nav>
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#pasos">Pasos</a>
+      <a href="#ejemplo">Ejemplo de mapa</a>
+      <a href="#uso-clase">Uso en la clase</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Herramienta de diseño · EDINBA</div>
+    <h1>Mapeo de sistemas<br /> para la investigación desde el diseño</h1>
+    <p>
+      El mapeo de sistemas permite comprender problemas complejos como redes de actores,
+      relaciones, flujos y tensiones. Esta herramienta ayuda a situar el proyecto de diseño
+      dentro de un sistema más amplio, identificando puntos de intervención y posibles
+      efectos colaterales.
+    </p>
+    <p class="hero-meta">
+      Objetivo: que puedas construir un mapa de sistema claro, legible y útil para la toma de
+      decisiones en tus proyectos de diseño e investigación.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Qué es -->
+  <section class="card" id="que-es">
+    <h2>1. ¿Qué es el mapeo de sistemas?</h2>
+    <p>
+      El <strong>mapeo de sistemas</strong> es una forma de representar gráficamente
+      una situación compleja: los actores involucrados, sus relaciones, los recursos que
+      circulan, las reglas formales e informales y las tensiones que se generan.
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h3>Idea central</h3>
+        <p>
+          En lugar de ver el problema como una línea simple de causa–efecto, se reconoce que
+          forma parte de un sistema: múltiples causas, retroalimentaciones, intereses distintos
+          y capas de contexto (social, económico, cultural, tecnológico).
+        </p>
+        <div class="pill-row">
+          <span class="pill">Actores</span>
+          <span class="pill">Relaciones</span>
+          <span class="pill">Flujos</span>
+          <span class="pill">Tensiones</span>
+        </div>
+      </div>
+      <div class="note">
+        <span class="badge">¿Por qué es útil?</span>
+        <p>
+          Ayuda a:
+        </p>
+        <ul>
+          <li>Evitar soluciones simplistas a problemas complejos.</li>
+          <li>Detectar quién gana, quién pierde y quién no está siendo escuchado.</li>
+          <li>Encontrar <strong>puntos de palanca</strong>: lugares donde una intervención
+              de diseño puede generar cambios significativos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Pasos -->
+  <section class="card" id="pasos">
+    <h2>2. Pasos básicos para mapear un sistema</h2>
+    <p>
+      Esta es una versión de trabajo pensada para proyectos de diseño e investigación social.
+    </p>
+
+    <h3>2.1. Definir el problema desde el sistema</h3>
+    <ul>
+      <li>Escribe el problema en términos de <strong>relaciones</strong>, no solo de objetos.</li>
+      <li>Ejemplo: en lugar de “no hay mobiliario urbano adecuado”, pensar “las relaciones
+          entre usuarios, gobierno local, proveedores, comunidades y espacio público están
+          desbalanceadas”.</li>
+    </ul>
+
+    <h3>2.2. Identificar actores y elementos clave</h3>
+    <p>
+      Lista todo lo que interviene en la situación:
+    </p>
+    <ul>
+      <li>Actores humanos (personas, grupos, instituciones).</li>
+      <li>Actores no humanos (infraestructura, tecnologías, objetos, animales, ambiente).</li>
+      <li>Normas, políticas, usos y costumbres.</li>
+    </ul>
+
+    <h3>2.3. Explorar relaciones y flujos</h3>
+    <ul>
+      <li>¿Quién se relaciona con quién y cómo? (colaboración, conflicto, dependencia, etc.).</li>
+      <li>¿Qué circula entre ellos? (información, dinero, objetos, afectos, permisos, etc.).</li>
+      <li>¿Qué relaciones son visibles y cuáles están “ocultas” o naturalizadas?</li>
+    </ul>
+
+    <h3>2.4. Dibujar el mapa</h3>
+    <p>
+      En un lienzo (papel grande o lienzo digital):
+    </p>
+    <ul>
+      <li>Coloca a los actores como nodos (puntos, íconos, figuras).</li>
+      <li>Conecta con flechas o líneas según el tipo de relación.</li>
+      <li>Usa códigos de color o tipos de línea para diferenciar relaciones (formales, informales,
+          de poder, de colaboración, etc.).</li>
+    </ul>
+
+    <h3>2.5. Identificar tensiones y oportunidades</h3>
+    <ul>
+      <li>Marca en el mapa dónde hay conflictos, bloqueos, huecos o duplicidades.</li>
+      <li>Señala también zonas donde ya hay prácticas inspiradoras o recursos subutilizados.</li>
+      <li>Pregunta: ¿qué pasaría si cambiara esta relación, se agregara un actor o se moviera
+          un flujo?</li>
+    </ul>
+
+    <h3>2.6. Elegir puntos de intervención</h3>
+    <p>
+      A partir del mapa, selecciona algunos puntos donde un proyecto de diseño podría intervenir:
+    </p>
+    <ul>
+      <li>Creando nuevos conectores (personas, plataformas, objetos, servicios).</li>
+      <li>Reconfigurando una relación (modo de uso, contrato, reglas, interfaz).</li>
+      <li>Haciendo visible algo que antes era invisible (datos, historias, conflictos).</li>
+    </ul>
+  </section>
+
+  <!-- 3. Ejemplo -->
+  <section class="card" id="ejemplo">
+    <h2>3. Ejemplo sencillo de mapeo de sistema</h2>
+    <p>
+      Supongamos un proyecto sobre el uso de espacios culturales por jóvenes en una colonia
+      de la ciudad. El “sistema” podría incluir:
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h3>Actores posibles</h3>
+        <ul>
+          <li>Jóvenes de la colonia.</li>
+          <li>Centros culturales y casas de cultura.</li>
+          <li>Escuelas de la zona.</li>
+          <li>Gobierno local / alcaldía.</li>
+          <li>Colectivos artísticos.</li>
+          <li>Comercios cercanos.</li>
+          <li>Familias y vecinos.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Relaciones y flujos</h3>
+        <ul>
+          <li>Información sobre eventos (¿por dónde circula?).</li>
+          <li>Recursos materiales (presupuesto, espacios, equipo).</li>
+          <li>Reglas de acceso (requisitos, horarios, permisos).</li>
+          <li>Reconocimiento y prestigio (quién “ocupa” legítimamente el espacio).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="small">
+      Al dibujar el mapa, puede aparecer que los jóvenes se enteran tarde de las actividades,
+      que los horarios no se ajustan a su disponibilidad o que existe desconfianza entre
+      ciertos actores. Eso abre preguntas de diseño: ¿cómo puede intervenir el diseño
+      gráfico, de servicios o de experiencias para reconfigurar estas relaciones?
+    </p>
+  </section>
+
+  <!-- 4. Uso en la clase -->
+  <section class="card" id="uso-clase">
+    <h2>4. ¿Cómo se usará el mapeo de sistemas en la clase?</h2>
+    <p>
+      En el curso, el mapeo de sistemas se utilizará como herramienta de:
+    </p>
+    <ul>
+      <li><strong>Investigación contextual:</strong> entender el entorno más allá del “usuario ideal”.</li>
+      <li><strong>Diagnóstico crítico:</strong> visibilizar relaciones de poder, exclusiones y oportunidades.</li>
+      <li><strong>Diseño de intervenciones:</strong> decidir dónde, cómo y con quién trabajar desde el diseño.</li>
+    </ul>
+
+    <h3>4.1. Entregables sugeridos</h3>
+    <ul>
+      <li>Texto breve que define el problema en clave sistémica.</li>
+      <li>Lista de actores y elementos clave (por categorías).</li>
+      <li>Mapa de sistema legible (digital o escaneado, con leyenda de códigos).</li>
+      <li>Descripción de 2–3 tensiones principales detectadas.</li>
+      <li>Propuesta de 1–3 posibles puntos de intervención desde el diseño.</li>
+    </ul>
+
+    <p class="note">
+      La intención no es “tener el mapa perfecto”, sino construir una mirada más amplia
+      y situada sobre el problema. El mapa puede y debe cambiar conforme avances en la
+      investigación y el proyecto.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Sitio elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Ajusta ejemplos y casos según la asignatura específica.
+  </div>
+</footer>
+
+</body>
+</html>

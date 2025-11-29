@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Análisis morfológico · Herramienta para el diseño</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* Paleta EDINBA / INBAL aproximada */
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: white;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 0 0.7rem;
+      font-size: 0.96rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-meta {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.5rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--edinba-blue);
+    }
+
+    .card h3 {
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+      color: var(--edinba-magenta);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.96rem;
+    }
+
+    ul, ol {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.7rem;
+    }
+
+    li { margin-bottom: 0.2rem; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--edinba-mid);
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    .note {
+      border-left: 3px solid var(--edinba-magenta);
+      padding-left: 0.8rem;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      background: #fafafa;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--edinba-mid);
+      padding: 0.5rem 0.6rem;
+      text-align: left;
+    }
+
+    th {
+      background: #e8edf2;
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: 0.86rem;
+      opacity: 0.9;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 0.75rem;
+        margin-top: 0.2rem;
+      }
+      main {
+        margin-top: -1rem;
+      }
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br />
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+    <nav>
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#pasos">Pasos</a>
+      <a href="#ejemplo">Ejemplo de matriz</a>
+      <a href="#uso-clase">Uso en la clase</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Herramienta de diseño · EDINBA</div>
+    <h1>Análisis morfológico<br /> para la generación de conceptos</h1>
+    <p>
+      El análisis morfológico es una herramienta clásica del diseño que permite explorar
+      sistemáticamente combinaciones de variables de un problema para generar alternativas
+      de solución. Esta página resume el método adaptado al trabajo de la EDINBA.
+    </p>
+    <p class="hero-meta">
+      Objetivo: que puedas construir tu propia matriz morfológica y usarla como detonador de
+      conceptos en proyectos de diseño y creatividad.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Qué es -->
+  <section class="card" id="que-es">
+    <h2>1. ¿Qué es el análisis morfológico?</h2>
+    <p>
+      El <strong>análisis morfológico</strong> es un método para descomponer un problema de diseño
+      en sus partes o parámetros principales, listar opciones para cada uno y luego combinar
+      esas opciones de forma sistemática para generar propuestas nuevas.
+    </p>
+    <div class="grid-2">
+      <div>
+        <h3>Idea central</h3>
+        <p>
+          En lugar de pensar en el objeto como un bloque completo, se fragmenta en
+          <strong>dimensiones</strong> (función, forma, material, usuario, contexto, etc.) y se
+          exploran combinaciones de posibilidades en cada una.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Descomponer</span>
+          <span class="pill">Combinar</span>
+          <span class="pill">Explorar variantes</span>
+        </div>
+      </div>
+      <div class="note">
+        <span class="badge">¿Por qué sirve en creatividad?</span>
+        <p>
+          Obliga a ir más allá de la “primera idea” y a probar configuraciones que quizá no
+          aparecerían de forma espontánea. Es especialmente útil cuando:
+        </p>
+        <ul>
+          <li>El problema es complejo y tiene muchas variables.</li>
+          <li>El equipo está bloqueado en las mismas soluciones de siempre.</li>
+          <li>Se busca justificar decisiones de diseño con un proceso claro.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Pasos -->
+  <section class="card" id="pasos">
+    <h2>2. Pasos básicos del análisis morfológico</h2>
+    <p>
+      A continuación se presenta una versión sintética del método que trabajaremos en clase.
+    </p>
+
+    <h3>2.1. Definir el problema y el alcance</h3>
+    <ul>
+      <li>Escribe en una frase clara qué quieres resolver (problema de diseño).</li>
+      <li>Delimita contexto: usuarios, entorno, restricciones principales.</li>
+    </ul>
+
+    <h3>2.2. Identificar parámetros o dimensiones</h3>
+    <p>
+      Son los “ejes” que describen el sistema u objeto a diseñar. Por ejemplo:
+    </p>
+    <ul>
+      <li>Usuario / destinatario</li>
+      <li>Función principal</li>
+      <li>Contexto de uso</li>
+      <li>Materialidad</li>
+      <li>Lenguaje formal / expresivo</li>
+      <li>Tecnología involucrada</li>
+    </ul>
+
+    <h3>2.3. Listar opciones para cada parámetro</h3>
+    <p>
+      Para cada parámetro, escribe varias opciones posibles (3–7 por parámetro está bien).
+      No importa si algunas parecen raras o poco probables: aquí buscamos amplitud.
+    </p>
+
+    <h3>2.4. Construir la matriz morfológica</h3>
+    <p>
+      Organiza los parámetros como filas y las opciones como columnas. Cada celda es una
+      posibilidad que después se podrá combinar con las de otras filas.
+    </p>
+
+    <h3>2.5. Explorar combinaciones</h3>
+    <ul>
+      <li>Traza recorridos verticales para escoger una opción por cada parámetro.</li>
+      <li>Marca combinaciones que resulten interesantes, extremas o poco exploradas.</li>
+      <li>Descarta aquellas que violen restricciones básicas del proyecto.</li>
+    </ul>
+
+    <h3>2.6. Traducir combinaciones en conceptos</h3>
+    <p>
+      Toma las combinaciones seleccionadas y tradúcelas en:
+    </p>
+    <ul>
+      <li>Bocetos rápidos.</li>
+      <li>Pequeñas narrativas de uso.</li>
+      <li>Listas de requisitos o atributos clave.</li>
+    </ul>
+    <p class="note">
+      El análisis morfológico no “diseña por ti”, pero deja documentado <strong>de dónde salió</strong>
+      cada concepto, qué variables combinaste y qué alternativas consideraste.
+    </p>
+  </section>
+
+  <!-- 3. Ejemplo de matriz -->
+  <section class="card" id="ejemplo">
+    <h2>3. Ejemplo sencillo de matriz morfológica</h2>
+    <p>
+      Ejemplo: dispositivo de apoyo para lectura en espacios públicos. Los parámetros podrían ser:
+    </p>
+    <ul>
+      <li>Usuario</li>
+      <li>Contexto de uso</li>
+      <li>Tipo de soporte</li>
+      <li>Material principal</li>
+      <li>Interacción</li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Parámetro</th>
+          <th>Opción A</th>
+          <th>Opción B</th>
+          <th>Opción C</th>
+          <th>Opción D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Usuario</td>
+          <td>Estudiante universitario</td>
+          <td>Persona mayor</td>
+          <td>Niño lector</td>
+          <td>Trabajador en tránsito</td>
+        </tr>
+        <tr>
+          <td>Contexto de uso</td>
+          <td>Metro / transporte</td>
+          <td>Biblioteca pública</td>
+          <td>Parque</td>
+          <td>Cafetería</td>
+        </tr>
+        <tr>
+          <td>Tipo de soporte</td>
+          <td>Base para libro físico</td>
+          <td>Soporte para tablet</td>
+          <td>Dispositivo híbrido</td>
+          <td>Accesorio portátil</td>
+        </tr>
+        <tr>
+          <td>Material principal</td>
+          <td>Madera</td>
+          <td>Plástico reciclado</td>
+          <td>Metal ligero</td>
+          <td>Textil rígido</td>
+        </tr>
+        <tr>
+          <td>Interacción</td>
+          <td>Plegable</td>
+          <td>Ajuste de altura</td>
+          <td>Módulos intercambiables</td>
+          <td>Integración con app</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="small">
+      Una combinación posible sería: <em>persona mayor</em> + <em>biblioteca pública</em> +
+      <em>soporte para tablet</em> + <em>plástico reciclado</em> + <em>ajuste de altura</em>.  
+      A partir de esta combinación se puede construir un concepto de producto
+      y justificarlo con base en las decisiones de la matriz.
+    </p>
+  </section>
+
+  <!-- 4. Uso en la clase -->
+  <section class="card" id="uso-clase">
+    <h2>4. ¿Cómo se usará esta herramienta en la clase?</h2>
+    <p>
+      Durante el curso, el análisis morfológico se usará como:
+    </p>
+    <ul>
+      <li>Herramienta de <strong>divergencia</strong> en la fase de ideación.</li>
+      <li>Soporte para justificar por qué se eligieron ciertos conceptos y no otros.</li>
+      <li>Documento de proceso que puede integrarse al reporte o bitácora del proyecto.</li>
+    </ul>
+
+    <h3>4.1. Entregables sugeridos</h3>
+    <ul>
+      <li>Definición escrita del problema de diseño.</li>
+      <li>Lista de parámetros y opciones.</li>
+      <li>Matriz morfológica limpia y legible (digital o a mano escaneada).</li>
+      <li>Selección de combinaciones relevantes (marcadas en la matriz).</li>
+      <li>De 3 a 5 conceptos derivados, explicados con breves textos e imágenes.</li>
+    </ul>
+
+    <p class="note">
+      Puedes partir de este esquema y ajustarlo a tu proyecto. Lo importante es que el
+      análisis morfológico sea una herramienta viva, no un trámite: debe ayudarte a pensar
+      y a tomar decisiones de diseño con mayor conciencia.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Sitio elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Ajusta ejemplos y casos según la asignatura específica.
+  </div>
+</footer>
+
+</body>
+</html>
