@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Portal de clases · EDINBA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* Paleta EDINBA / INBAL aproximada */
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.4rem 1.5rem 2.2rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin: 0 0 0.5rem;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 0 0.4rem;
+      font-size: 0.96rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.4rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .section-title {
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.3rem;
+      color: var(--edinba-blue);
+    }
+
+    .section-subtitle {
+      margin: 0 0 0.9rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .grid-cursos {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .curso-card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.1rem 1rem 1rem;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .curso-etiqueta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--edinba-magenta);
+    }
+
+    .curso-titulo {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--edinba-blue);
+    }
+
+    .curso-desc {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .curso-meta {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .curso-link {
+      margin-top: 0.4rem;
+    }
+
+    .curso-link a {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      border: 1px solid var(--edinba-blue);
+      color: var(--edinba-blue);
+      background: #ffffff;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .curso-link a:hover {
+      background: var(--edinba-blue);
+      color: white;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.2rem;
+    }
+
+    .pill {
+      font-size: 0.74rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+    }
+
+    .placeholder {
+      opacity: 0.7;
+      border-style: dashed;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      main {
+        margin-top: -1rem;
+      }
+      .grid-cursos {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <!-- Ajusta el logo si cambias la ruta -->
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br />
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Portal de clases EDINBA</div>
+    <h1>Clases, materiales y sitios de apoyo</h1>
+    <p>
+      Este portal reúne los sitios web de apoyo para distintas asignaturas de la EDINBA:
+      guías de escritura, metodologías de diseño, herramientas digitales y otros recursos.
+    </p>
+    <p>
+      A medida que se vayan abriendo cursos, se irán activando más secciones en esta página.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2 class="section-title">Clases activas</h2>
+    <p class="section-subtitle">
+      Sitios que ya están en uso durante el semestre.
+    </p>
+
+    <div class="grid-cursos">
+      <!-- Curso 1: Paper de opinión sobre creatividad -->
+      <article class="curso-card">
+        <div class="curso-etiqueta">Guía de escritura</div>
+        <h3 class="curso-titulo">Artículo de opinión sobre creatividad en el diseño contemporáneo</h3>
+        <p class="curso-desc">
+          Sitio con la explicación de qué es un artículo científico, las diferentes estructuras
+          (IMRyD, estudio de caso, ensayo, revisión, PRISMA, etc.) y la guía específica para
+          escribir un <strong>paper de opinión</strong> en la MCD–EDINBA.
+        </p>
+        <p class="curso-meta">
+          Uso: apoyo para la entrega de artículo final. Incluye checklist, estructura sugerida
+          y ejemplos de posibles convocatorias para enviar el texto.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Creatividad</span>
+          <span class="pill">Diseño contemporáneo</span>
+          <span class="pill">Escritura académica</span>
+        </div>
+        <div class="curso-link">
+          <!-- Ajusta el nombre si guardaste el archivo con otro nombre -->
+          <a href="papers.html">Ir al sitio del paper</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Otras clases (próximamente)</h2>
+    <p class="section-subtitle">
+      Espacios reservados para futuros sitios de clase. Se irán activando durante el año.
+    </p>
+
+    <div class="grid-cursos">
+      <!-- Placeholder 1 -->
+      <article class="curso-card placeholder">
+        <div class="curso-etiqueta">Próximamente</div>
+        <h3 class="curso-titulo">Nombre de la asignatura 1</h3>
+        <p class="curso-desc">
+          Aquí se enlazará el sitio de apoyo de la asignatura (programa, lecturas, ejercicios,
+          rúbricas, etc.).
+        </p>
+        <p class="curso-meta">
+          En cuanto el sitio esté listo, se actualizará este recuadro con la liga correspondiente.
+        </p>
+      </article>
+
+      <!-- Placeholder 2 -->
+      <article class="curso-card placeholder">
+        <div class="curso-etiqueta">Próximamente</div>
+        <h3 class="curso-titulo">Nombre de la asignatura 2</h3>
+        <p class="curso-desc">
+          Espacio reservado para otro curso de la EDINBA (por ejemplo, metodologías de investigación,
+          herramientas digitales, creatividad aplicada, etc.).
+        </p>
+        <p class="curso-meta">
+          Puedes duplicar esta tarjeta y reemplazar el contenido cuando abras un nuevo sitio.
+        </p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Portal elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Este índice se actualizará conforme se agreguen nuevas clases.
+  </div>
+</footer>
+
+</body>
+</html>

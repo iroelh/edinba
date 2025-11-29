@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guía EDINBA · Cómo escribir un artículo científico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* Paleta inspirada en EDINBA / INBAL (ajústala si lo deseas) */
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: white;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 0 1rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .hero-meta {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.5rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--edinba-blue);
+    }
+
+    .card h3 {
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+      color: var(--edinba-magenta);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.96rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--edinba-mid);
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    ul, ol {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.7rem;
+    }
+
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .note {
+      border-left: 3px solid var(--edinba-magenta);
+      padding-left: 0.8rem;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li::before {
+      content: "✓ ";
+      color: var(--edinba-magenta);
+      font-weight: 700;
+    }
+
+    .checklist li {
+      margin-bottom: 0.3rem;
+    }
+
+    .code-block {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 0.9rem 0.8rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 0.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .code-block span {
+      color: #a5b4fc;
+    }
+
+    .destinos-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .destino-card {
+      border-radius: 10px;
+      border: 1px solid var(--edinba-mid);
+      padding: 0.9rem 0.9rem 0.8rem;
+      background: #fafafa;
+      font-size: 0.9rem;
+    }
+
+    .destino-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.35rem;
+      font-size: 1rem;
+      color: var(--edinba-blue);
+    }
+
+    .destino-meta {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-bottom: 0.35rem;
+    }
+
+    .destino-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 0.05rem 0.5rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      margin-right: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .destino-link {
+      font-size: 0.82rem;
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 0.75rem;
+        margin-top: 0.2rem;
+      }
+      main {
+        margin-top: -1rem;
+      }
+      .grid-2,
+      .destinos-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <!-- Cambia esta ruta si usas otro logo -->
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br />
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+    <nav>
+      <a href="#que-es-paper">¿Qué es un paper?</a>
+      <a href="#estructuras">Estructuras</a>
+      <a href="#prisma">PRISMA</a>
+      <a href="#paper-edinba">Paper EDINBA</a>
+      <a href="#destinos">¿Dónde enviarlo?</a>
+      <a href="#checklist">Checklist</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Guía rápida · Posgrado EDINBA</div>
+    <h1>Cómo escribir un artículo científico en diseño<br /> (y no morir en el intento)</h1>
+    <p>
+      Esta guía acompaña la escritura de un 
+      <strong>artículo de opinión académica sobre la creatividad en el diseño contemporáneo</strong>.
+      Primero se explica qué es un paper, luego se presentan las <strong>principales estructuras de artículos científicos</strong>
+      (IMRyD, estudio de caso, ensayo teórico, revisión narrativa, revisión sistemática tipo PRISMA, artículo metodológico, opinión),
+      y después se detalla el <strong>paper específico de la EDINBA</strong> y algunos <strong>eventos donde podrías enviarlo</strong>.
+    </p>
+    <p class="hero-meta">
+      Producto final del curso: un paper de opinión argumentado, con base teórica y referencias,
+      listo para circular en ámbitos de diseño, arte y creatividad.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Qué es un paper -->
+  <section class="card" id="que-es-paper">
+    <h2>1. ¿Qué es un artículo científico en diseño?</h2>
+    <p>
+      En términos sencillos, un <strong>artículo científico</strong> es un texto corto 
+      (por lo general entre 3 000 y 8 000 palabras) donde una persona o un equipo de autores:
+    </p>
+    <ul>
+      <li>Plantea un problema o pregunta clara.</li>
+      <li>Dialoga con autores y antecedentes relevantes.</li>
+      <li>Presenta una postura, un método o resultados.</li>
+      <li>Argumenta por qué eso aporta algo nuevo o útil.</li>
+    </ul>
+
+    <div class="grid-2">
+      <div>
+        <h3>En el campo del diseño</h3>
+        <p>
+          El artículo no solo “cuenta un proyecto”; debe 
+          <strong>problematizar</strong> la práctica del diseño, conectarla con teoría
+          y hacer visibles sus implicaciones sociales, culturales y tecnológicas.
+        </p>
+        <div class="pill-row">
+          <span class="pill">Diseño como práctica crítica</span>
+          <span class="pill">Creatividad y tecnología</span>
+          <span class="pill">Patrimonio y futuro</span>
+        </div>
+      </div>
+      <div class="note">
+        <span class="badge">Para este curso</span>
+        <p>
+          El producto final será un <strong>paper de opinión académica</strong>, 
+          centrado en la pregunta:
+        </p>
+        <p><em>“¿Qué significa hoy la creatividad en el diseño contemporáneo?”</em></p>
+        <p>
+          Tu tarea será tomar postura, apoyándote en lecturas, ejemplos y tu experiencia,
+          dentro de una estructura clara de artículo científico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Estructuras de artículos -->
+  <section class="card" id="estructuras">
+    <h2>2. Mapa de estructuras de artículos científicos</h2>
+    <p>
+      No todos los journals piden exactamente lo mismo, pero en diseño suelen repetirse 
+      varias <strong>estructuras base</strong>. Conocerlas te ayuda a entender qué tipo de texto estás
+      escribiendo y qué esperan de ti como autor.
+    </p>
+
+    <h3>2.1. Artículo empírico (estructura IMRyD)</h3>
+    <p>
+      Es el formato clásico en muchas disciplinas. Se usa cuando se reporta una investigación
+      con método explícito (encuestas, entrevistas, experimentos, estudios de caso comparados).
+    </p>
+    <ul>
+      <li><strong>Introducción:</strong> contexto, problema, pregunta, objetivos.</li>
+      <li><strong>Metodología:</strong> enfoque, participantes, técnicas, instrumentos.</li>
+      <li><strong>Resultados:</strong> hallazgos organizados (tablas, gráficos, categorías).</li>
+      <li><strong>Discusión:</strong> interpretación de resultados a la luz de la teoría.</li>
+      <li><strong>Conclusiones:</strong> síntesis, límites y líneas futuras.</li>
+    </ul>
+
+    <h3>2.2. Estudio de caso</h3>
+    <p>
+      Muy común en diseño. Se centra en uno o pocos casos que se analizan en profundidad:
+      un proyecto, un taller, una comunidad, un laboratorio, etc.
+    </p>
+    <ul>
+      <li><strong>Contexto y problema del caso.</strong></li>
+      <li><strong>Descripción del caso</strong> (actores, procesos, artefactos).</li>
+      <li><strong>Marco teórico</strong> usado para leer el caso.</li>
+      <li><strong>Análisis y discusión</strong> de lo que el caso revela.</li>
+      <li><strong>Conclusiones</strong> transferibles o lecciones aprendidas.</li>
+    </ul>
+
+    <h3>2.3. Artículo teórico / ensayo crítico</h3>
+    <p>
+      Se enfoca en conceptos, autores y marcos de pensamiento. No siempre hay “método”
+      empírico, pero sí una <strong>argumentación rigurosa</strong>.
+    </p>
+    <ul>
+      <li><strong>Introducción:</strong> problema conceptual y posición del autor.</li>
+      <li><strong>Estado de la cuestión:</strong> cómo se ha entendido el tema.</li>
+      <li><strong>Desarrollo:</strong> diálogo crítico entre autores y ejemplos.</li>
+      <li><strong>Propuesta:</strong> redefinición, tipología, modelo o lectura alternativa.</li>
+      <li><strong>Conclusiones:</strong> implicaciones para la teoría y la práctica.</li>
+    </ul>
+
+    <h3>2.4. Artículo metodológico</h3>
+    <p>
+      Centrado en presentar, adaptar o evaluar un <strong>método, protocolo o herramienta</strong> 
+      para investigar o hacer diseño.
+    </p>
+    <ul>
+      <li>Problema metodológico (¿qué no resuelven los métodos existentes?).</li>
+      <li>Descripción detallada del nuevo método o adaptación.</li>
+      <li>Caso(s) de aplicación.</li>
+      <li>Ventajas, límites y recomendaciones.</li>
+    </ul>
+
+    <h3>2.5. Revisión narrativa de literatura</h3>
+    <p>
+      Revisa lo que se ha publicado sobre un tema, pero de forma más flexible que PRISMA.
+    </p>
+    <ul>
+      <li>Elección de un <strong>tema o pregunta central</strong>.</li>
+      <li>Búsqueda de textos clave (libros, artículos, capítulos).</li>
+      <li>Organización temática (por enfoques, periodos, conceptos).</li>
+      <li>Lectura crítica y síntesis propositiva.</li>
+    </ul>
+
+    <h3>2.6. Revisión sistemática (estructura PRISMA)</h3>
+    <p>
+      Es la versión más formalizada de la revisión de literatura. 
+      Tiene criterios de búsqueda y selección explícitos y reproducibles.
+      Aquí entra el <strong>checklist PRISMA</strong> y su diagrama de flujo.
+    </p>
+    <p>
+      Más abajo, en la sección <a href="#prisma">PRISMA</a>, se explica esta estructura con mayor detalle.
+    </p>
+
+    <h3>2.7. Artículo de opinión / perspectiva</h3>
+    <p>
+      Es el tipo de texto que trabajarás en este curso. Se centra en la <strong>postura del autor</strong>,
+      pero en diálogo explícito con literatura y práctica.
+    </p>
+    <ul>
+      <li>Problema o debate actual (por ejemplo, creatividad y diseño contemporáneo).</li>
+      <li>Selección comentada de autores y casos.</li>
+      <li>Argumento personal explícito (acuerdos, críticas, matices).</li>
+      <li>Conclusiones y llamados a la acción o a la reflexión.</li>
+    </ul>
+    <p class="note">
+      Aunque sea un artículo de opinión, se evalúa con criterios académicos: 
+      <strong>claridad, rigor, coherencia y uso de fuentes</strong>.
+    </p>
+  </section>
+
+  <!-- 3. PRISMA explicado -->
+  <section class="card" id="prisma">
+    <h2>3. ¿Qué es PRISMA y cómo se relaciona con las otras estructuras?</h2>
+    <p>
+      <strong>PRISMA</strong> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses)
+      no es un tipo de texto completamente distinto, sino una <strong>forma específica de estructurar
+      una revisión sistemática</strong>.
+    </p>
+    <p>
+      Su objetivo es que el lector entienda con precisión:
+    </p>
+    <ul>
+      <li>Qué se buscó exactamente (pregunta de investigación).</li>
+      <li>Dónde se buscó (bases de datos, años, idiomas).</li>
+      <li>Qué se excluyó y con qué criterios.</li>
+      <li>Qué se analizó al final y cómo se sintetizó.</li>
+    </ul>
+
+    <div class="grid-2">
+      <div>
+        <h3>PRISMA en 4 fases básicas</h3>
+        <ol>
+          <li><strong>Identificación:</strong> recolección de todos los registros posibles.</li>
+          <li><strong>Cribado:</strong> eliminación de duplicados y títulos claramente irrelevantes.</li>
+          <li><strong>Elegibilidad:</strong> revisión de resúmenes y textos completos con criterios claros.</li>
+          <li><strong>Inclusión:</strong> estudios que realmente se analizan en la revisión.</li>
+        </ol>
+        <p>
+          Esto se representa en un <strong>diagrama de flujo PRISMA</strong>, donde se indican las
+          cantidades en cada etapa (cuántos se encontraron, cuántos se excluyeron y por qué, etc.).
+        </p>
+      </div>
+      <div class="note">
+        <span class="badge">En relación con los demás formatos</span>
+        <p>
+          Piensa PRISMA como una forma “con esteroides” de hacer una revisión de literatura:
+        </p>
+        <ul>
+          <li>Comparte con la <strong>revisión narrativa</strong> el foco en la literatura publicada.</li>
+          <li>Comparte con el <strong>artículo empírico</strong> el énfasis en la transparencia del método.</li>
+          <li>Puede combinarse con <strong>estudios de caso</strong> o <strong>artículos metodológicos</strong>
+              cuando se revisan métodos en diseño.</li>
+        </ul>
+        <p>
+          En este curso no harás una revisión PRISMA completa, pero sí puedes adoptar su lógica:
+          explicar <strong>cómo seleccionas</strong> los textos que discutes sobre creatividad
+          en el diseño contemporáneo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Paper EDINBA específico -->
+  <section class="card" id="paper-edinba">
+    <h2>4. Paper EDINBA · Opinión sobre la creatividad en el diseño contemporáneo</h2>
+    <p>
+      Esta sección define el encargo específico para las y los estudiantes de la EDINBA.
+      Se trata de un <strong>artículo de opinión académica</strong> sobre la creatividad en el diseño contemporáneo,
+      con extensión y estructura sugerida.
+    </p>
+
+    <h3>4.1. Objetivo del paper</h3>
+    <ul>
+      <li>Tomar una <strong>posición argumentada</strong> sobre qué significa hoy la creatividad en el diseño.</li>
+      <li>Articular esa postura con <strong>lecturas teóricas</strong> y <strong>ejemplos de práctica</strong>.</li>
+      <li>Familiarizarse con un <strong>formato de artículo publicable</strong> en contextos de diseño y arte.</li>
+    </ul>
+
+    <h3>4.2. Extensión y formato sugeridos</h3>
+    <ul>
+      <li><strong>Extensión:</strong> entre 4 000 y 5 000 palabras (aprox. 8–12 cuartillas a doble espacio).</li>
+      <li><strong>Formato:</strong> interlineado 1.5 o 2; tipografía legible (por ejemplo, 11–12 pt).</li>
+      <li><strong>Norma de citación:</strong> APA 7ª edición.</li>
+      <li><strong>Idioma:</strong> español (se sugiere título y resumen también en inglés si se piensa en publicación).</li>
+    </ul>
+
+    <h3>4.3. Estructura recomendada</h3>
+    <p>
+      Puedes adaptar la estructura según tu estilo, pero se sugiere el siguiente esqueleto:
+    </p>
+    <ol>
+      <li>
+        <strong>Título y subtítulo</strong><br />
+        Título claro y conciso; subtítulo opcional para situar enfoque, contexto o metodología.
+      </li>
+      <li>
+        <strong>Resumen (150–250 palabras)</strong><br />
+        Escribe al final. Debe sintetizar: problema, enfoque teórico, postura principal y aporte.
+      </li>
+      <li>
+        <strong>Palabras clave (3–5)</strong><br />
+        Por ejemplo: creatividad, diseño contemporáneo, tecnologías digitales, autoría, práctica proyectual.
+      </li>
+      <li>
+        <strong>Introducción</strong><br />
+        1–2 cuartillas donde:
+        <ul>
+          <li>Delimites qué entiendes por “creatividad” en el contexto del diseño.</li>
+          <li>Enmarques el problema: ¿por qué es relevante discutirlo hoy?</li>
+          <li>Formules tu <strong>pregunta guía</strong> o eje central.</li>
+          <li>Explique brevemente <strong>cómo elegiste</strong> las fuentes (tipo de textos, periodos, autores clave).</li>
+          <li>Adelantes tu <strong>posición general</strong>.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Desarrollo argumental (2–3 apartados temáticos)</strong><br />
+        Cada apartado funciona como un “bloque de argumento”:
+        <ul>
+          <li>
+            <em>Ejemplo de eje 1:</em> Creatividad y oficio.<br />
+            ¿Qué lugar ocupa el saber hacer material (artesanía, técnica, oficio) frente a las herramientas digitales?
+          </li>
+          <li>
+            <em>Ejemplo de eje 2:</em> Creatividad y tecnología.<br />
+            IA, algoritmos, herramientas generativas: ¿amenaza, extensión o reconfiguración de la creatividad?
+          </li>
+          <li>
+            <em>Ejemplo de eje 3:</em> Creatividad, ética y contexto laboral.<br />
+            Precariedad, autoría colectiva, plataformas, industria cultural, etc.
+          </li>
+        </ul>
+        En cada bloque:
+        <ul>
+          <li>Presenta brevemente qué dicen algunos autores (teóricos del diseño, creatividad, cultura visual, etc.).</li>
+          <li>Introduce ejemplos de proyectos, casos o experiencias propias bien descritas.</li>
+          <li>Explica con claridad <strong>tu posición</strong>, dialogando con las fuentes (acuerdos, desacuerdos, matices).</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Discusión / Cierre argumental</strong><br />
+        Sección donde “cierras la pinza”:
+        <ul>
+          <li>Conectas los ejes entre sí (oficio, tecnología, contexto, ética).</li>
+          <li>Señalas paradojas, tensiones o dilemas que te parecen centrales.</li>
+          <li>Abres preguntas para investigación o práctica futura.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Conclusiones</strong><br />
+        2–3 párrafos donde:
+        <ul>
+          <li>Regresas explícitamente a la pregunta inicial.</li>
+          <li>Formulas tu definición —aunque sea provisional— de creatividad en el diseño contemporáneo.</li>
+          <li>Indicas por qué esta reflexión puede importar a la comunidad de diseño (EDINBA, redes locales, etc.).</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Referencias (APA 7)</strong><br />
+        Lista completa de las fuentes citadas en el texto.
+      </li>
+    </ol>
+
+    <h3>4.4. Nivel de rigor esperado</h3>
+    <p>
+      El texto debe:
+    </p>
+    <ul>
+      <li>Mostrar conocimiento de <strong>lecturas clave</strong> vistas en el curso (y, si es posible, algunas adicionales).</li>
+      <li>Ir más allá del “me gusta / no me gusta”: se espera <strong>argumento</strong>, no solo opinión.</li>
+      <li>Tener una redacción clara, sin exceso de jerga, pero con precisión conceptual.</li>
+      <li>Cumplir con las normas básicas de citación y referencias.</li>
+    </ul>
+  </section>
+
+  <!-- 5. Destinos posibles para enviar el paper -->
+  <section class="card" id="destinos">
+    <h2>5. ¿Dónde podría enviarse este tipo de paper? (calls abiertos)</h2>
+    <p>
+      Esta sección presenta algunos ejemplos de conferencias y espacios donde un texto sobre creatividad y diseño
+      podría tener cabida. Revisa siempre la información oficial, fechas y alcances antes de enviar.
+    </p>
+
+    <div class="destinos-grid">
+      <!-- ICSDCI 2026 -->
+      <article class="destino-card">
+        <h3>International Conference on Sustainable Design and Creative Industries (ICSDCI 2026)</h3>
+        <div class="destino-meta">
+          24–25 enero 2026 · Ponta Delgada, Azores, Portugal
+        </div>
+        <div>
+          <span class="destino-tag">Conferencia</span>
+          <span class="destino-tag">Diseño y creatividad</span>
+          <span class="destino-tag">Sostenibilidad</span>
+        </div>
+        <p>
+          Conferencia orientada a diseño sostenible y <em>creative industries</em>. Acepta trabajos que vinculen creatividad,
+          innovación y diseño con contextos productivos y culturales. Puede ser un buen destino para textos que discutan
+          creatividad, sostenibilidad y práctica profesional.
+        </p>
+        <p><strong>Call:</strong> abierto; la fecha de envío de resúmenes se sitúa a finales de 2025.</p>
+        <p class="destino-link">
+          Más información: <a href="https://globalacademicresearchinstitute.com/sustainable-design-and-creative-industries/call-for-papers" target="_blank" rel="noopener noreferrer">Sitio ICSDCI 2026</a>
+        </p>
+      </article>
+
+      <!-- EAI DLI 2026 -->
+      <article class="destino-card">
+        <h3>EAI Design, Learning & Innovation 2026 (DLI 2026)</h3>
+        <div class="destino-meta">
+          2026 · Conferencia internacional sobre diseño, aprendizaje e innovación
+        </div>
+        <div>
+          <span class="destino-tag">Conferencia</span>
+          <span class="destino-tag">Diseño</span>
+          <span class="destino-tag">Educación</span>
+        </div>
+        <p>
+          Conferencia que explora cómo el diseño se cruza con procesos de aprendizaje y nuevas formas de innovación.
+          Es pertinente para textos que aborden la creatividad en el diseño desde la docencia, los laboratorios y
+          los procesos formativos.
+        </p>
+        <p><strong>Call:</strong> abierto; el plazo de envío de <em>full papers</em> se ubica hacia finales de 2025.</p>
+        <p class="destino-link">
+          Más información: <a href="https://designlearninginnovation.eai-conferences.org/2026/call-for-paper/" target="_blank" rel="noopener noreferrer">Call DLI 2026</a>
+        </p>
+      </article>
+
+      <!-- Art of Research 2026 -->
+      <article class="destino-card">
+        <h3>Art of Research 2026 · VOICES</h3>
+        <div class="destino-meta">
+          2026 · Aalto University, Finlandia
+        </div>
+        <div>
+          <span class="destino-tag">Conferencia</span>
+          <span class="destino-tag">Investigación en arte y diseño</span>
+        </div>
+        <p>
+          Conferencia centrada en investigación basada en prácticas artísticas y de diseño. La edición 2026 trabaja
+          el tema <em>“Voices”</em>, orientado a las múltiples voces que constituyen la investigación en arte y diseño.
+          Un paper sobre creatividad en diseño contemporáneo, con fuerte componente reflexivo, puede dialogar bien aquí.
+        </p>
+        <p><strong>Call:</strong> abierto; la fecha límite de envío de <em>papers</em> ronda marzo de 2026.</p>
+        <p class="destino-link">
+          Más información: <a href="https://events.aalto.fi/3X3IKxA7/g/82Z1zDshz8/art-of-research-2026-4a3bQtTRKz/custom/call-for-papers-4a3KQtaYeH" target="_blank" rel="noopener noreferrer">Art of Research 2026</a>
+        </p>
+      </article>
+
+      <!-- ICCC'26 -->
+      <article class="destino-card">
+        <h3>ICCC’26 · International Conference on Computational Creativity</h3>
+        <div class="destino-meta">
+          29 junio–3 julio 2026 · Coimbra, Portugal
+        </div>
+        <div>
+          <span class="destino-tag">Conferencia</span>
+          <span class="destino-tag">IA y creatividad</span>
+        </div>
+        <p>
+          Centrada en creatividad computacional y sistemas de IA creativa. Resulta especialmente relevante si tu artículo
+          discute la creatividad en relación con herramientas de IA generativa, algoritmos, colaboración humano–máquina
+          o educación en creatividad computacional.
+        </p>
+        <p><strong>Call:</strong> abierto; fechas típicas: resúmenes a finales de febrero de 2026 y envío de <em>full paper</em> a inicios de marzo de 2026.</p>
+        <p class="destino-link">
+          Más información: <a href="https://computationalcreativity.net/iccc26/full-papers/" target="_blank" rel="noopener noreferrer">ICCC’26 Call for Papers</a>
+        </p>
+      </article>
+
+      <!-- ADED 2026 -->
+      <article class="destino-card">
+        <h3>2026 International Conference on Art, Design and Education Development (ADED 2026)</h3>
+        <div class="destino-meta">
+          2026 · Chengdu, China
+        </div>
+        <div>
+          <span class="destino-tag">Conferencia</span>
+          <span class="destino-tag">Arte y diseño</span>
+          <span class="destino-tag">Educación</span>
+        </div>
+        <p>
+          Conferencia dedicada a las relaciones entre arte, diseño y desarrollo educativo. Adecuada para trabajos
+          que aborden la creatividad en el diseño desde la enseñanza, los currículos y las experiencias formativas.
+        </p>
+        <p><strong>Call:</strong> abierto; consulta fechas exactas de envío de resúmenes y textos completos en el sitio.</p>
+        <p class="destino-link">
+          Más información: <a href="https://www.icaded.com/" target="_blank" rel="noopener noreferrer">Sitio ADED 2026</a>
+        </p>
+      </article>
+
+      <!-- Espacio para otros destinos -->
+      <article class="destino-card">
+        <h3>Otras opciones (journals y redes de diseño)</h3>
+        <div class="destino-meta">
+          Journals y redes internacionales de diseño
+        </div>
+        <div>
+          <span class="destino-tag">Revistas</span>
+          <span class="destino-tag">Calls especiales</span>
+        </div>
+        <p>
+          Además de conferencias, existen <strong>números especiales de revistas</strong> en diseño, creatividad
+          e innovación que abren <em>calls for papers</em> cada año. Vale la pena revisar:
+        </p>
+        <ul>
+          <li>Design Research Society (DRS) – convocatorias y eventos.</li>
+          <li>Redes y journals de diseño de comunicación, diseño social y creatividad aplicada.</li>
+        </ul>
+        <p>
+          Sugerencia: antes de enviar, adapta el formato del paper a las normas específicas de cada evento o revista.
+        </p>
+      </article>
+    </div>
+
+    <p class="note">
+      Importante: las fechas y requisitos pueden cambiar de un año a otro. Siempre verifica directamente en el sitio
+      oficial del evento o journal antes de enviar tu manuscrito.
+    </p>
+  </section>
+
+  <!-- 6. Checklist -->
+  <section class="card" id="checklist">
+    <h2>6. Checklist antes de entregar</h2>
+    <p>
+      Usa esta lista como autoevaluación rápida. Si marcas casi todo, vas por buen camino:
+    </p>
+    <ul class="checklist">
+      <li>El tema está claramente centrado en la <strong>creatividad en el diseño contemporáneo</strong>.</li>
+      <li>Reconozco qué tipo de estructura estoy usando (opinión, ensayo crítico, etc.).</li>
+      <li>Tengo un <strong>título</strong> y, si aplica, un subtítulo informativo.</li>
+      <li>Escribí un <strong>resumen</strong> que explica problema, enfoque y postura.</li>
+      <li>Organicé el texto en secciones reconocibles (introducción, desarrollo, cierre, conclusiones).</li>
+      <li>Mi opinión está <strong>apoyada en lecturas</strong>, no solo en experiencias personales.</li>
+      <li>Menciono brevemente <strong>cómo elegí</strong> las fuentes que discuto.</li>
+      <li>Uso un tono académico: evito coloquialismos excesivos y generalizaciones sin sustento.</li>
+      <li>Todas las citas en el texto tienen su referencia completa en la lista final.</li>
+      <li>Sigo las bases de APA 7 (autores, año, cursivas, etc.).</li>
+      <li>Hice una revisión de ortografía, formato y extensión antes de enviar.</li>
+    </ul>
+
+    <p class="note">
+      Recuerda: el objetivo no es que el paper se vea perfecto a la primera,
+      sino que se convierta en una <strong>pieza de pensamiento crítico</strong> que puedas seguir
+      puliendo hasta llegar a publicación.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Sitio elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Actualiza fechas, rúbricas y requisitos según el programa.
+  </div>
+</footer>
+
+</body>
+</html>
