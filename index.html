@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Portal de clases · EDINBA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     :root {
       --edinba-blue: #003b5c;
@@ -11,351 +13,232 @@
       --edinba-light: #f5f5f7;
       --edinba-mid: #e3e3ea;
       --edinba-dark: #111111;
+
+      /* colores tema claro */
+      --bg: var(--edinba-light);
+      --text: var(--edinba-dark);
+      --card-bg: white;
+      --card-border: var(--edinba-mid);
+      --shadow: rgba(0, 0, 0, 0.07);
     }
 
-    * { box-sizing: border-box; }
+    /* Tema oscuro */
+    body.dark {
+      --bg: #111418;
+      --text: #e7e9ec;
+      --card-bg: #1a1d22;
+      --card-border: #2f3238;
+      --shadow: rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+    }
 
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--edinba-light);
-      color: var(--edinba-dark);
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
     }
 
+    /* Tema claro/oscuro del header */
     header {
       background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
       color: white;
-      padding: 1.4rem 1.5rem 2.2rem;
+      padding: 1.5rem 1.5rem 2.4rem;
+      position: relative;
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.4rem;
+    /* Botón modo oscuro */
+    .toggle-theme {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: .45rem .75rem;
+      border-radius: 8px;
+      font-size: .8rem;
+      cursor: pointer;
+      transition: background .3s ease;
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-area img {
-      height: 52px;
-      width: auto;
-      border-radius: 4px;
-    }
-
-    .logo-text {
-      font-size: 0.9rem;
-      opacity: 0.9;
+    .toggle-theme:hover {
+      background: rgba(255, 255, 255, 0.32);
     }
 
     .hero {
       max-width: 960px;
       margin: 0 auto;
+      text-align: left;
     }
 
     .hero h1 {
-      font-size: clamp(1.9rem, 3vw, 2.4rem);
-      margin: 0 0 0.5rem;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
     }
 
     .hero p {
-      max-width: 720px;
-      margin: 0 0 0.4rem;
-      font-size: 0.96rem;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 999px;
-      padding: 0.2rem 0.9rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      max-width: 750px;
+      margin-top: .7rem;
+      opacity: .95;
     }
 
     main {
       max-width: 960px;
-      margin: -1.4rem auto 3rem;
-      padding: 0 1.5rem 3rem;
+      margin: -2rem auto 3rem;
+      padding: 0 1.5rem;
     }
 
-    .section-title {
-      margin-top: 1.6rem;
-      margin-bottom: 0.4rem;
-      font-size: 1.3rem;
-      color: var(--edinba-blue);
-    }
-
-    .section-subtitle {
-      margin: 0 0 0.9rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .grid-cursos {
+    .grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.4rem;
+      margin-top: 3rem;
     }
 
-    .curso-card {
-      background: white;
+    .card {
+      background: var(--card-bg);
+      padding: 1.4rem 1.2rem;
       border-radius: 14px;
-      padding: 1.1rem 1rem 1rem;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.02);
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .curso-etiqueta {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--edinba-magenta);
-    }
-
-    .curso-titulo {
-      margin: 0;
-      font-size: 1.05rem;
-      color: var(--edinba-blue);
-    }
-
-    .curso-desc {
-      margin: 0;
-      font-size: 0.9rem;
-    }
-
-    .curso-meta {
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    .curso-link {
-      margin-top: 0.4rem;
-    }
-
-    .curso-link a {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      font-size: 0.82rem;
+      box-shadow: 0 12px 24px var(--shadow);
+      transition: transform .15s ease, box-shadow .15s ease;
       text-decoration: none;
-      border: 1px solid var(--edinba-blue);
-      color: var(--edinba-blue);
-      background: #ffffff;
-      transition: background 0.15s ease, color 0.15s ease;
+      color: inherit;
+      border: 1px solid var(--card-border);
     }
 
-    .curso-link a:hover {
-      background: var(--edinba-blue);
-      color: white;
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px var(--shadow);
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.2rem;
-    }
-
-    .pill {
-      font-size: 0.74rem;
-      padding: 0.1rem 0.55rem;
-      border-radius: 999px;
-      background: var(--edinba-mid);
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
       color: var(--edinba-blue);
     }
 
-    .placeholder {
-      opacity: 0.7;
-      border-style: dashed;
+    body.dark .card h2 {
+      color: #8cc7ff; /* tono azul claro para dark mode */
+    }
+
+    .card p {
+      font-size: .93rem;
+      margin-bottom: 0;
+      opacity: .92;
     }
 
     footer {
       max-width: 960px;
-      margin: 0 auto 2rem;
+      margin: 2rem auto;
       padding: 0 1.5rem;
-      font-size: 0.8rem;
-      color: #555;
+      color: #666;
+      font-size: .8rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: .4rem;
     }
 
-    @media (max-width: 720px) {
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      main {
-        margin-top: -1rem;
-      }
-      .grid-cursos {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    body.dark footer {
+      color: #adadad;
     }
   </style>
 </head>
+
 <body>
 
 <header>
-  <div class="topbar">
-    <div class="logo-area">
-      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
-      <div class="logo-text">
-        Maestría en Creatividad para el Diseño<br />
-        Escuela de Diseño del INBAL
-      </div>
-    </div>
-  </div>
+  <button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
 
   <div class="hero">
-    <div class="hero-tag">Portal de clases EDINBA</div>
-    <h1>Clases, materiales y sitios de apoyo</h1>
+    <h1>Portal de clases<br> Maestría en Creatividad para el Diseño · EDINBA</h1>
     <p>
-      Este portal reúne los sitios web de apoyo para distintas asignaturas de la EDINBA:
-      guías de escritura, metodologías de diseño, herramientas digitales y otros recursos.
-    </p>
-    <p>
-      A medida que se vayan abriendo cursos, se irán activando más secciones en esta página.
+      Acceso centralizado a los sitios web creados para las clases del posgrado.  
+      Este portal crecerá conforme se integren nuevas metodologías y contenidos.
     </p>
   </div>
 </header>
 
 <main>
+  <div class="grid">
 
-  <section>
-    <h2 class="section-title">Clases activas</h2>
-    <p class="section-subtitle">
-      Sitios que ya están en uso durante el semestre.
-    </p>
+    <a class="card" href="morfologico.html">
+      <h2>Análisis morfológico</h2>
+      <p>
+        Introducción al método morfológico aplicado al diseño: variables, combinatoria,
+        exploración formal y prototipado conceptual.
+      </p>
+    </a>
 
-    <div class="grid-cursos">
-      <!-- Curso 1: Análisis morfológico -->
-      <article class="curso-card">
-        <div class="curso-etiqueta">Herramienta de diseño</div>
-        <h3 class="curso-titulo">Análisis morfológico para la generación de conceptos</h3>
-        <p class="curso-desc">
-          Sitio que explica el método de análisis morfológico, sus pasos básicos y un ejemplo de
-          matriz para usar en proyectos de diseño. Orientado a la exploración sistemática de
-          alternativas conceptuales.
-        </p>
-        <p class="curso-meta">
-          Uso: apoyo en etapas de ideación, justificación de conceptos y documentación de procesos.
-        </p>
-        <div class="pill-row">
-          <span class="pill">Metodología</span>
-          <span class="pill">Generación de ideas</span>
-          <span class="pill">Matriz morfológica</span>
-        </div>
-        <div class="curso-link">
-          <a href="morfologico.html">Ir al sitio de análisis morfológico</a>
-        </div>
-      </article>
+    <a class="card" href="sistemas.html">
+      <h2>Mapeo de sistemas</h2>
+      <p>
+        Fundamentos del pensamiento sistémico, relaciones, actores, flujos y estructuras
+        para comprender problemas complejos desde el diseño.
+      </p>
+    </a>
 
-      <!-- Curso 2: Mapeo de sistemas -->
-      <article class="curso-card">
-        <div class="curso-etiqueta">Herramienta de diseño</div>
-        <h3 class="curso-titulo">Mapeo de sistemas para la investigación desde el diseño</h3>
-        <p class="curso-desc">
-          Sitio que introduce el mapeo de sistemas como herramienta para comprender problemas
-          complejos, identificar actores, relaciones y tensiones, y localizar puntos de
-          intervención para proyectos de diseño.
-        </p>
-        <p class="curso-meta">
-          Uso: apoyo en fases de investigación, diagnóstico y planeación de intervenciones.
-        </p>
-        <div class="pill-row">
-          <span class="pill">Sistemas</span>
-          <span class="pill">Investigación</span>
-          <span class="pill">Mapas de actores</span>
-        </div>
-        <div class="curso-link">
-          <a href="sistemas.html">Ir al sitio de mapeo de sistemas</a>
-        </div>
-      </article>
+    <a class="card" href="paper.html">
+      <h2>Cómo escribir un paper académico</h2>
+      <p>
+        Estructuras, PRISMA, narrativa académica y guía para elaborar un paper de opinión
+        sobre creatividad en el diseño contemporáneo.
+      </p>
+    </a>
 
-      <!-- Curso 3: Paper de opinión sobre creatividad -->
-      <article class="curso-card">
-        <div class="curso-etiqueta">Guía de escritura</div>
-        <h3 class="curso-titulo">Artículo de opinión sobre creatividad en el diseño contemporáneo</h3>
-        <p class="curso-desc">
-          Sitio con la explicación de qué es un artículo científico, las diferentes estructuras
-          (IMRyD, estudio de caso, ensayo, revisión, PRISMA, etc.) y la guía específica para
-          escribir un <strong>paper de opinión</strong> en la MCD–EDINBA.
-        </p>
-        <p class="curso-meta">
-          Uso: apoyo para la entrega de artículo final. Incluye checklist, estructura sugerida
-          y ejemplos de posibles convocatorias para enviar el texto.
-        </p>
-        <div class="pill-row">
-          <span class="pill">Creatividad</span>
-          <span class="pill">Diseño contemporáneo</span>
-          <span class="pill">Escritura académica</span>
-        </div>
-        <div class="curso-link">
-          <a href="papers.html">Ir al sitio del paper</a>
-        </div>
-      </article>
-    </div>
-  </section>
+    <a class="card" href="backcasting.html">
+      <h2>Backcasting: energía solar en América Latina</h2>
+      <p>
+        Método de futuros que parte del escenario deseado hacia decisiones presentes.
+        Ejemplo completo aplicado a la transición energética solar.
+      </p>
+    </a>
 
-  <section>
-    <h2 class="section-title">Otras clases (próximamente)</h2>
-    <p class="section-subtitle">
-      Espacios reservados para futuros sitios de clase. Se irán activando durante el año.
-    </p>
+    <a class="card" href="futuros.html">
+      <h2>Metodologías de futuros</h2>
+      <p>
+        Cono de plausibilidad, ciencia ficción en el diseño y aproximaciones prospectivas
+        para imaginar futuros posibles, plausibles y preferibles.
+      </p>
+    </a>
 
-    <div class="grid-cursos">
-      <!-- Placeholder 1 -->
-      <article class="curso-card placeholder">
-        <div class="curso-etiqueta">Próximamente</div>
-        <h3 class="curso-titulo">Nombre de la asignatura 1</h3>
-        <p class="curso-desc">
-          Aquí se enlazará el sitio de apoyo de la asignatura (programa, lecturas, ejercicios,
-          rúbricas, etc.).
-        </p>
-        <p class="curso-meta">
-          En cuanto el sitio esté listo, se actualizará este recuadro con la liga correspondiente.
-        </p>
-      </article>
-
-      <!-- Placeholder 2 -->
-      <article class="curso-card placeholder">
-        <div class="curso-etiqueta">Próximamente</div>
-        <h3 class="curso-titulo">Nombre de la asignatura 2</h3>
-        <p class="curso-desc">
-          Espacio reservado para otro curso de la EDINBA (por ejemplo, metodologías de investigación,
-          herramientas digitales, creatividad aplicada, etc.).
-        </p>
-        <p class="curso-meta">
-          Puedes duplicar esta tarjeta y reemplazar el contenido cuando abras un nuevo sitio.
-        </p>
-      </article>
-    </div>
-  </section>
-
+  </div>
 </main>
 
 <footer>
   <div>
-    Portal elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+    Portal desarrollado por Dr. Erick Iroel Heredia Carrillo · 2025
   </div>
   <div>
-    Versión inicial · Este índice se actualizará conforme se agreguen nuevas clases.
+    Uso académico interno en la EDINBA · Escuela de Diseño del INBAL
   </div>
 </footer>
+
+<script>
+  // Cargar tema guardado
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.removeItem("theme");
+    }
+  }
+</script>
 
 </body>
 </html>

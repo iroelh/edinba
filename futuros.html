@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Metodologías de futuros · EDINBA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: .9rem;
+      opacity: .9;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      padding-bottom: .15rem;
+      font-size: .9rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: white;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,.14);
+      padding: .25rem .85rem;
+      font-size: .78rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 .75rem;
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 0 .7rem;
+      font-size: .96rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.5rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--edinba-blue);
+      font-size: 1.3rem;
+    }
+
+    .card h3 {
+      margin-top: 1.3rem;
+      color: var(--edinba-magenta);
+      font-size: 1.05rem;
+    }
+
+    ul,ol {
+      padding-left: 1.2rem;
+      margin: .4rem 0 .8rem;
+      font-size: .96rem;
+    }
+
+    li { margin-bottom: .3rem; }
+
+    .pill-row {
+      margin-top: .6rem;
+      display: flex;
+      gap: .45rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+      font-size: .78rem;
+      padding: .2rem .7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .note {
+      border-left: 3px solid var(--edinba-magenta);
+      padding-left: .8rem;
+      font-size: .9rem;
+      opacity: .9;
+    }
+
+    .image-figure {
+      border-radius: 12px;
+      overflow: hidden;
+      margin: .8rem 0;
+      background: #fafafa;
+      border: 1px solid var(--edinba-mid);
+    }
+
+    .image-figure img {
+      width: 100%;
+      display: block;
+    }
+
+    .caption {
+      padding: .6rem .9rem;
+      font-size: .85rem;
+      color: #444;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: .8rem;
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    @media(max-width:720px){
+      .topbar { flex-direction: column; align-items: flex-start; }
+      nav { display: flex; flex-wrap: wrap; gap: .5rem; }
+      nav a { margin-left: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA">
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br>
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+
+    <nav>
+      <a href="#introduccion">Inicio</a>
+      <a href="#cono">Cono de plausibilidad</a>
+      <a href="#ficcion">Ciencia ficción y diseño</a>
+      <a href="#usos">Usos en clase</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Metodologías de futuros</div>
+    <h1>Cono de plausibilidad<br> + Ciencia ficción en el diseño</h1>
+    <p>
+      Este sitio reúne dos herramientas clave para explorar futuros desde la creatividad y el diseño:
+      el <strong>Cono de plausibilidad</strong> y el <strong>uso de la ciencia ficción</strong> como detonador visual,
+      narrativo y conceptual.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- Introducción -->
+  <section class="card" id="introduccion">
+    <h2>1. ¿Por qué trabajar futuros en el diseño?</h2>
+    <p>
+      Diseñar es actuar sobre el presente con efectos en el futuro. Por eso, las metodologías 
+      de futuros permiten expandir la creatividad, cuestionar inercias y generar escenarios que 
+      ayuden a pensar cambios sociales, culturales, materiales o tecnológicos.
+    </p>
+
+    <div class="pill-row">
+      <span class="pill">Prospectiva</span>
+      <span class="pill">Diseño especulativo</span>
+      <span class="pill">Escenarios</span>
+      <span class="pill">Crítica</span>
+    </div>
+
+    <p class="note">
+      La intención no es predecir el futuro, sino <strong>explorar posibilidades</strong> y construir 
+      visiones que alimenten la práctica del diseño.
+    </p>
+  </section>
+
+  <!-- Cono de plausibilidad -->
+  <section class="card" id="cono">
+    <h2>2. Cono de plausibilidad</h2>
+
+    <p>
+      El Cono de plausibilidad es un modelo visual que organiza el espectro de futuros posibles, 
+      plausibles, probables y preferibles a partir del presente. Es una herramienta fundamental 
+      en estudios de futuros y diseño estratégico.
+    </p>
+
+    <div class="image-figure">
+      <img src="https://raw.githubusercontent.com/iroelh/edinba/refs/heads/main/Captura%20de%20pantalla%202025-12-02%20194122.png" 
+           alt="Cono de plausibilidad">
+      <div class="caption">
+        Diagrama del <strong>Cono de plausibilidad</strong>. Representa la expansión de posibilidades a medida
+        que avanzamos desde el presente hacia futuros con distintos niveles de probabilidad.
+      </div>
+    </div>
+
+    <h3>¿Qué distingue cada zona?</h3>
+    <ul>
+      <li><strong>Futuro probable:</strong> continuidad de tendencias.</li>
+      <li><strong>Futuro plausible:</strong> podría ocurrir con ajustes intermedios.</li>
+      <li><strong>Futuro posible:</strong> no contradice leyes naturales o sociales.</li>
+      <li><strong>Futuro preferible:</strong> el que queremos construir.</li>
+    </ul>
+
+    <p class="note">
+      El cono permite ubicar escenarios dentro de un rango inteligible, evitando confundir deseos
+      con predicciones o especulaciones sin fundamento.
+    </p>
+  </section>
+
+  <!-- Ciencia ficción -->
+  <section class="card" id="ficcion">
+    <h2>3. Ciencia ficción y diseño</h2>
+
+    <p>
+      La ciencia ficción funciona como laboratorio narrativo y visual para explorar futuros 
+      que aún no existen, pero que iluminan posibilidades, riesgos y dilemas del presente.
+      En diseño, se utiliza para especular sobre tecnologías, experiencias, artefactos,
+      sistemas sociales y transformaciones culturales.
+    </p>
+
+    <div class="image-figure">
+      <img src="https://raw.githubusercontent.com/iroelh/edinba/refs/heads/main/Captura%20de%20pantalla%202025-12-02%20194620.png"
+           alt="Ciencia ficción en el diseño">
+      <div class="caption">
+        Ilustración conceptual usada para explorar futuros mediante <strong>ciencia ficción</strong>.
+        Las narrativas visuales ayudan a diseñar objetos, tecnologías y sistemas futuros.
+      </div>
+    </div>
+
+    <h3>¿Cómo se usa en diseño?</h3>
+    <ul>
+      <li>Para imaginar artefactos futuros mediante narrativa visual.</li>
+      <li>Para cuestionar sistemas actuales desde escenarios alternativos.</li>
+      <li>Para crear prototipos especulativos que generen debate.</li>
+      <li>Para explorar lo “posible” sin las restricciones del presente inmediato.</li>
+    </ul>
+
+    <p class="note">
+      No se trata de hacer “fantasía futurista”, sino de usar la ficción como 
+      <strong>vehículo crítico</strong> para pensar otras formas de vida, objetos y relaciones.
+    </p>
+  </section>
+
+  <!-- Usos en clase -->
+  <section class="card" id="usos">
+    <h2>4. ¿Cómo se usará en la clase?</h2>
+    <p>
+      En la EDINBA, estas metodologías se integrarán en actividades como:
+    </p>
+    <ul>
+      <li>Construcción de escenarios de futuros.</li>
+      <li>Proyectos especulativos a partir de ciencia ficción.</li>
+      <li>Análisis de plausibilidad para ubicar ideas dentro del cono.</li>
+      <li>Ejercicios narrativos y visuales basados en imágenes o prototipos.</li>
+    </ul>
+
+    <p>
+      Esto ayudará a que el diseño se entienda no solo como producción de objetos,
+      sino como <strong>construcción de futuros posibles.</strong>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Sitio elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Actualiza ejemplos según la asignatura.
+  </div>
+</footer>
+
+</body>
+</html>
