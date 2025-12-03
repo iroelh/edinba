@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Backcasting · Energía solar en América Latina</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --edinba-blue: #003b5c;
+      --edinba-magenta: #c6007e;
+      --edinba-light: #f5f5f7;
+      --edinba-mid: #e3e3ea;
+      --edinba-dark: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--edinba-light);
+      color: var(--edinba-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--edinba-blue), var(--edinba-magenta));
+      color: white;
+      padding: 1.5rem 1.5rem 2.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-area img {
+      height: 52px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .logo-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: white;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 0 0.7rem;
+      font-size: 0.96rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-meta {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -1.5rem auto 3rem;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--edinba-blue);
+    }
+
+    .card h3 {
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+      font-size: 1.05rem;
+      color: var(--edinba-magenta);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.6rem;
+      font-size: 0.96rem;
+    }
+
+    ul, ol {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.7rem;
+    }
+
+    li { margin-bottom: 0.2rem; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--edinba-mid);
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    .note {
+      border-left: 3px solid var(--edinba-magenta);
+      padding-left: 0.8rem;
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: var(--edinba-mid);
+      color: var(--edinba-blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .grid-2-balanced {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    .small {
+      font-size: 0.86rem;
+      opacity: 0.9;
+    }
+
+    .image-box {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fafafa;
+      border: 1px solid var(--edinba-mid);
+      margin-top: 0.5rem;
+    }
+
+    .image-box img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .image-caption {
+      padding: 0.5rem 0.7rem 0.65rem;
+      font-size: 0.85rem;
+      color: #444;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 0.75rem;
+        margin-top: 0.2rem;
+      }
+      main {
+        margin-top: -1rem;
+      }
+      .grid-2,
+      .grid-2-balanced {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo-area">
+      <img src="https://raw.githubusercontent.com/iroelh/clases/refs/heads/main/logo.png" alt="EDINBA" />
+      <div class="logo-text">
+        Maestría en Creatividad para el Diseño<br />
+        Escuela de Diseño del INBAL
+      </div>
+    </div>
+    <nav>
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#pasos">Pasos</a>
+      <a href="#ejemplo">Ejemplo</a>
+      <a href="#uso-clase">Uso en la clase</a>
+      <a href="#recursos">Recursos</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-tag">Metodología de futuros · EDINBA</div>
+    <h1>Backcasting<br /> </h1>
+    <p>
+      El <strong>backcasting</strong> es una metodología de futuros en la que se parte de un
+      <strong>futuro deseado</strong> y se trabaja “hacia atrás” hasta el presente para identificar
+      qué cambios, decisiones y proyectos de diseño son necesarios para acercarse a ese escenario.
+    </p>
+    <p class="hero-meta">
+      En este sitio, el ejemplo se centra en la <strong>energía solar como eje de la transición energética
+      en América Latina</strong>, articulando visión de futuro, situación actual y posibles trayectorias
+      intermedias.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Qué es -->
+  <section class="card" id="que-es">
+    <h2>1. ¿Qué es el backcasting?</h2>
+    <p>
+      Mientras el <em>forecasting</em> intenta proyectar el futuro a partir de tendencias actuales,
+      el <strong>backcasting</strong> invierte la lógica: primero se imagina un futuro deseable 
+      (por ejemplo, América Latina con sistemas energéticos basados en fuentes solares distribuidas)
+      y luego se reconstruye <strong>el camino de regreso</strong> hasta hoy.
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h3>Idea central</h3>
+        <p>
+          El backcasting no busca adivinar lo que va a ocurrir, sino preguntarse:
+        </p>
+        <p><em>“¿Qué tipo de futuro queremos colectivamente, y qué tendríamos que transformar hoy para acercarnos a él?”</em></p>
+        <p>
+          Esto implica describir el futuro con suficiente detalle y luego identificar:
+        </p>
+        <ul>
+          <li>Cambios estructurales (políticos, tecnológicos, culturales).</li>
+          <li>Decisiones clave de política pública y de diseño.</li>
+          <li>Proyectos, prototipos y prácticas que puedan activarse en el presente.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">Transición energética</span>
+          <span class="pill">Futuros sostenibles</span>
+          <span class="pill">Diseño estratégico</span>
+        </div>
+      </div>
+      <div class="note">
+        <span class="badge">Aplicado a energía solar</span>
+        <p>
+          En el caso de la energía solar en América Latina, el backcasting permite:
+        </p>
+        <ul>
+          <li>Imaginar ciudades y territorios donde la energía limpia sea la regla, no la excepción.</li>
+          <li>Visualizar el rol de diseñadores, comunidades y políticas públicas en esa transición.</li>
+          <li>Detectar el “salto” entre el presente fragmentado y un futuro solar distribuido e incluyente.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Pasos -->
+  <section class="card" id="pasos">
+    <h2>2. Pasos básicos de un ejercicio de backcasting</h2>
+    <p>
+      A continuación se presenta una versión adaptada a proyectos de diseño, con foco en la transición
+      hacia energía solar en la región.
+    </p>
+
+    <h3>2.1. Definir ámbito y horizonte temporal</h3>
+    <ul>
+      <li><strong>Ámbito:</strong> transición hacia energía solar como fuente principal de energía en América Latina.</li>
+      <li><strong>Horizonte:</strong> 20–25 años (por ejemplo, 2045–2050) para cambios estructurales.</li>
+    </ul>
+
+    <h3>2.2. Construir el escenario de futuro deseado</h3>
+    <ul>
+      <li>Describir un futuro en el que la energía solar sea la base de sistemas eléctricos limpios, distribuidos y accesibles.</li>
+      <li>Incluir dimensiones técnicas (infraestructura), sociales (equidad, acceso), culturales (apropiación local) y ecológicas.</li>
+      <li>Redactar el escenario en presente, como si ya existiera, para hacerlo más tangible.</li>
+    </ul>
+
+    <h3>2.3. Analizar la situación actual</h3>
+    <ul>
+      <li>Reconocer que la adopción de energía solar es desigual: proyectos aislados, dependencia de combustibles fósiles, brechas urbano–rurales.</li>
+      <li>Identificar iniciativas existentes que ya apuntan hacia ese futuro: comunidades solares, techos fotovoltaicos, programas públicos.</li>
+      <li>Localizar los principales obstáculos: costos, marcos regulatorios, infraestructura, imaginarios sociales.</li>
+    </ul>
+
+    <h3>2.4. Trazar el camino “hacia atrás”</h3>
+    <p>
+      Una vez descritos futuro y presente, se traza un camino en escalones (por ejemplo, 2045, 2040, 2035, 2030, 2028) 
+      preguntando:
+    </p>
+    <ul>
+      <li>“Si en 2045 queremos tener redes solares distribuidas y justas, ¿qué tendría que haber pasado ya en 2040?”</li>
+      <li>“¿Qué cambios deberían estar consolidados en 2035? ¿Qué pilotos y prototipos en 2030?”</li>
+      <li>“¿Qué proyectos concretos se pueden activar en los próximos 3–5 años?”</li>
+    </ul>
+
+    <h3>2.5. Traducir el camino en acciones de diseño</h3>
+    <ul>
+      <li>Identificar productos, servicios, espacios, plataformas y estrategias de comunicación que apoyen la transición.</li>
+      <li>Priorizar acciones que sean viables en el contexto local, pero alineadas con el futuro deseado.</li>
+      <li>Definir qué proyectos pueden abordarse desde el aula, el laboratorio o la práctica profesional.</li>
+    </ul>
+
+    <h3>2.6. Revisar coherencia y factibilidad</h3>
+    <ul>
+      <li>Revisar si el futuro imaginado es coherente con criterios de justicia social y ecológica.</li>
+      <li>Detectar “saltos mágicos” sin explicación (por ejemplo, cambios políticos instantáneos).</li>
+      <li>Ajustar el camino para que combine ambición y realismo crítico.</li>
+    </ul>
+  </section>
+
+  <!-- 3. Ejemplo con imágenes reales -->
+  <section class="card" id="ejemplo">
+    <h2>3. Ejemplo de backcasting · Energía solar en América Latina</h2>
+    <p>
+      En este ejemplo, el ámbito es la <strong>transición hacia energía solar</strong> como fuente principal de energía 
+      en ciudades y territorios de América Latina, con un horizonte a 20 años.
+    </p>
+
+    <div class="grid-2-balanced">
+      <div>
+        <h3>3.1. Futuro deseado</h3>
+        <p>
+          Se imagina un futuro en el que los paisajes urbanos y rurales están atravesados por infraestructuras solares
+          integradas al territorio: techos fotovoltaicos generalizados, granjas solares bien diseñadas, movilidad eléctrica
+          alimentada por microredes, y una relación más armónica entre energía, comunidad y paisaje.
+        </p>
+        <div class="image-box">
+          <img src="https://raw.githubusercontent.com/iroelh/edinba/refs/heads/main/Captura%20de%20pantalla%202025-12-02%20191304.png"
+               alt="Escenario futuro de energía solar en América Latina" />
+          <div class="image-caption">
+            Escenario de <strong>futuro deseado</strong>: la energía solar se convierte en columna vertebral
+            de la vida cotidiana, con infraestructura distribuida, integración paisajística y acceso amplio.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3>3.2. Situación actual</h3>
+        <p>
+          La imagen del presente muestra una adopción todavía fragmentada: proyectos solares concentrados en ciertas zonas,
+          presencia dominante de infraestructuras tradicionales, contrastes entre alta tecnología y contextos urbanos complejos.
+          Se ve el potencial, pero también las brechas.
+        </p>
+        <div class="image-box">
+          <img src="https://raw.githubusercontent.com/iroelh/edinba/refs/heads/main/Captura%20de%20pantalla%202025-12-02%20191320.png"
+               alt="Situación actual de energía solar en América Latina" />
+          <div class="image-caption">
+            <strong>Situación actual</strong>: la energía solar está presente, pero no es hegemónica; convive con redes
+            convencionales, desigualdades territoriales y limitaciones de infraestructura.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>3.3. Del futuro al presente: línea de tiempo inversa</h3>
+    <p class="small">
+      A partir del contraste entre ambas imágenes, un ejercicio de backcasting podría proponer, por ejemplo:
+    </p>
+    <ul class="small">
+      <li><strong>2045:</strong> Red de ciudades latinoamericanas con sistemas solares distribuidos y marcos regulatorios convergentes.</li>
+      <li><strong>2040:</strong> Programas regionales de apoyo a comunidades energéticas y cooperativas solares.</li>
+      <li><strong>2035:</strong> Integración sistemática de energía solar en vivienda social, equipamientos públicos y movilidad urbana.</li>
+      <li><strong>2030:</strong> Pilotos de microredes solares en barrios, escuelas y espacios culturales; marcos legales en transición.</li>
+      <li><strong>2028:</strong> Proyectos de diseño, prototipos y demostradores que experimentan con usos cotidianos de energía solar,
+          acompañados de estrategias de comunicación y educación.</li>
+    </ul>
+    <p class="small">
+      El rol del diseño aquí no se limita al artefacto técnico (panel, dispositivo), sino que se extiende a la
+      <strong>experiencia de uso</strong>, la <strong>visualización de escenarios</strong>, las narrativas,
+      las interfaces, los servicios y los objetos que hacen habitable esa transición energética.
+    </p>
+  </section>
+
+  <!-- 4. Uso en la clase -->
+  <section class="card" id="uso-clase">
+    <h2>4. ¿Cómo se usará el backcasting en la clase?</h2>
+    <p>
+      En el contexto de la EDINBA, el backcasting se podrá utilizar como:
+    </p>
+    <ul>
+      <li>Marco para situar proyectos de diseño dentro de <strong>transiciones de largo plazo</strong>, como la energética.</li>
+      <li>Herramienta para vincular <strong>visualización de futuros</strong> (imágenes, renders, ilustraciones) con decisiones presentes.</li>
+      <li>Puente entre <strong>escenarios narrados</strong> y <strong>prototipos concretos</strong> que los estudiantes puedan desarrollar.</li>
+    </ul>
+
+    <h3>4.1. Entregables sugeridos</h3>
+    <ul>
+      <li>Descripción escrita del futuro deseado (1–2 cuartillas, en presente).</li>
+      <li>Imágenes o ilustraciones que representen el futuro y el presente (como las usadas en este sitio).</li>
+      <li>Línea de tiempo de backcasting con hitos intermedios.</li>
+      <li>Propuesta de proyectos de diseño en el corto plazo (3–5 años) coherentes con la visión.</li>
+      <li>Reflexión crítica sobre el papel del diseño y la creatividad en la transición hacia energía solar.</li>
+    </ul>
+
+    <p class="note">
+      El objetivo no es “acertar” con el futuro, sino <strong>hacerse responsable de la visión</strong>
+      que se imagina y usar el diseño como herramienta para ensayar caminos posibles hacia ella.
+    </p>
+  </section>
+
+  <!-- 5. Recursos -->
+  <section class="card" id="recursos">
+    <h2>5. Recursos y pistas para profundizar</h2>
+    <p>
+      Para seguir trabajando este enfoque, se recomienda explorar:
+    </p>
+    <ul>
+      <li>Literatura sobre <strong>futures studies</strong>, diseño de futuros y especulación crítica.</li>
+      <li>Textos sobre <strong>transition design</strong> y transiciones sociotécnicas en energía.</li>
+      <li>Casos de estudio de comunidades solares, cooperativas energéticas y proyectos de diseño ligados a energías renovables.</li>
+      <li>Ejemplos de visualización de escenarios futuros (storyboards, renders, cómics, animaciones) aplicados a la transición energética.</li>
+    </ul>
+
+    <p class="small">
+      En cualquier proyecto que combine backcasting y energía solar, documentar la trayectoria 
+      (imágenes de futuro, diagnóstico del presente, línea de tiempo inversa y prototipos) 
+      permite convertir el trabajo de aula en insumo para conversaciones más amplias sobre la región.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    Sitio elaborado por Dr. Erick Iroel Heredia Carrillo, 2025. Uso académico interno en la EDINBA.
+  </div>
+  <div>
+    Versión inicial · Actualiza ejemplos y años de horizonte según la asignatura específica.
+  </div>
+</footer>
+
+</body>
+</html>
+
